@@ -16,7 +16,7 @@ void main() {
               padding: EdgeInsets.all(10),
               child: Text(
                 'MY HOBBIES',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 25),
               ),
             ),
             Container(
