@@ -1,6 +1,35 @@
 import 'package:flutter/material.dart';
 
-enum Product { dart, flutter, firebase }
+const String ImageDart = 'assets/ex3/dart.png';
+const String ImageFirebase = 'assets/ex3/firebase.png';
+const String ImageFlutter = 'assets/ex3/flutter.png';
+
+enum Product {
+  dart(
+    title: 'Dart',
+    description: 'The best object language',
+    images: ImageDart,
+  ),
+  firebase(
+    title: 'Firebase',
+    description: 'The best cloud database',
+    images: ImageFirebase,
+  ),
+  flutter(
+    title: 'Flutter',
+    description: 'The best mobile widget library',
+    images: ImageFlutter,
+  );
+
+  final String title;
+  final String description;
+  final String images;
+  const Product({
+    required this.title,
+    required this.description,
+    required this.images,
+  });
+}
 
 void main() {
   runApp(
@@ -8,40 +37,24 @@ void main() {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Container(
-          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children:  [
+            children: [
               Container(
-                padding: EdgeInsets.all(10),
-                child: Text('Products',
-                 style: TextStyle(fontSize: 20)),
+                child: Text('Products',),
               ),
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.all(10),
                 color: Colors.blue,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    ProductCard(
-                      description: 'The best object language',
-                      product: Product.dart,
-                      title: 'Dart',
-                    ),
-                    SizedBox(height: 15,),
-                    ProductCard(title: 'Flutter',
-                      description: 'the best mobile widet library',
-                      product: Product.flutter),
-                    
-                    SizedBox(height: 15,),
-                    ProductCard(title: 'Firebase',
-                      description: 'the best cloud database',
-                      product: Product.firebase),
+                    ProductCard(product: Product.dart),
+                    ProductCard(product:  Product.firebase),
+                    ProductCard(product: Product.flutter),
                   ],
                 ),
               ),
-               
-                
             ],
           ),
         ),
@@ -51,44 +64,33 @@ void main() {
 }
 
 class ProductCard extends StatelessWidget {
-  final String title;
-  final String description;
   final Product product;
 
   const ProductCard({
     super.key,
-    required this.title,
-    required this.description,
     required this.product,
   });
 
   @override
   Widget build(BuildContext context) {
-    final imagePath = switch (product) {
-      Product.dart => 'assets/ex3/dart.png',
-      Product.flutter => 'assets/ex3/flutter.png',
-      Product.firebase => 'assets/ex3/firebase.png',
-    };
-
-    return Container(
+    return Padding(
       padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-    
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(imagePath, width: double.infinity, height:120, alignment: Alignment.centerLeft,),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: TextStyle(fontSize: 30),),
-              Text(description),
-            ],
+          Image.asset(
+            product.images,
+            width: 100,
+            height: 120,
           ),
+          Text(
+            product.title,
+            style: TextStyle(fontSize: 30,
+            color: Colors.black),
+          ),
+          Text(product.description,
+          style: TextStyle(fontSize: 10,
+          color: Colors.black),),
         ],
       ),
     );
